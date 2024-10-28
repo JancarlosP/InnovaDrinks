@@ -1,6 +1,3 @@
-package com.example.innovadrinks.ui.theme.ui
-
-import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -36,10 +33,9 @@ fun LoginScreen(navController: NavHostController) {
         ) {
             Button(
                 onClick = {
-                    try {
-                        navController.navigate("home") // Cambiado a "home" en minúscula
-                    } catch (e: Exception) {
-                        Log.e("LoginScreen", "Error al navegar: ${e.message}")
+                    // Navega a la pantalla de inicio y elimina la pantalla de login
+                    navController.navigate("home") {
+                        popUpTo("login") { inclusive = true }
                     }
                 },
                 modifier = Modifier.fillMaxWidth(),
@@ -50,7 +46,9 @@ fun LoginScreen(navController: NavHostController) {
 
             Button(
                 onClick = {
-                    navController.navigate("home") // Cambiado a "home" en minúscula
+                    navController.navigate("home") {
+                        popUpTo("login") { inclusive = true }
+                    }
                 },
                 modifier = Modifier.fillMaxWidth(),
                 colors = ButtonDefaults.buttonColors(containerColor = Color.White)
@@ -60,7 +58,9 @@ fun LoginScreen(navController: NavHostController) {
 
             Button(
                 onClick = {
-                    navController.navigate("home") // Cambiado a "home" en minúscula
+                    navController.navigate("home") {
+                        popUpTo("login") { inclusive = true }
+                    }
                 },
                 modifier = Modifier.fillMaxWidth(),
                 colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF1E88E5))

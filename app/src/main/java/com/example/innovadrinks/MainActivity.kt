@@ -1,5 +1,6 @@
 package com.example.innovadrinks
 
+import LoginScreen
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -30,7 +31,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -57,7 +57,7 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun SplashScreenContent() {
     LaunchedEffect(Unit) {
-        delay(1000) // Retraso de 2 segundos
+        delay(1000) // Retraso de 1 segundo
     }
     // Navegación
     MainScreen()
@@ -68,15 +68,27 @@ fun SplashScreenContent() {
 fun MainScreen() {
     val navController = rememberNavController()
     var selectedItem by remember { mutableStateOf("home") }
+    var showBottomNav by remember { mutableStateOf(false) } // Estado para controlar la visibilidad del BottomNavigation
 
     Scaffold(
-        bottomBar = { CustomBottomNavigation(navController, selectedItem) { selectedItem = it } },
+        bottomBar = {
+            if (showBottomNav) { // Solo mostrar el BottomNavigation si showBottomNav es true
+                CustomBottomNavigation(navController) { selectedItem = it }
+            }
+        },
         modifier = Modifier
             .fillMaxSize()
             .background(Color(0xFF1A1A1A)) // Aplica el color de fondo aquí
     ) { innerPadding ->
-        NavHost(navController, startDestination = "home", Modifier.padding(innerPadding)) {
-            composable("home") { HomeScreen(navController) }
+        NavHost(navController, startDestination = "login", Modifier.padding(innerPadding)) {
+            composable("login") {
+                LoginScreen(navController)
+            }
+            composable("home") {
+                HomeScreen(onShowBottomNav = {
+                    showBottomNav = true
+                }) // Muestra el BottomNav al llegar a Home
+            }
             composable("promotions") { PromotionsScreen() }
             composable("order") { OrderScreen() }
             composable("profile") { ProfileScreen() }
@@ -88,7 +100,6 @@ fun MainScreen() {
 @Composable
 fun CustomBottomNavigation(
     navController: NavHostController,
-    selectedItem: String,
     onItemSelected: (String) -> Unit
 ) {
     Row(
@@ -130,22 +141,5 @@ fun CustomBottomNavigation(
                 )
             }
         }
-    }
-}
-
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    InnovaDrinksTheme {
-        Greeting("Android")
     }
 }
