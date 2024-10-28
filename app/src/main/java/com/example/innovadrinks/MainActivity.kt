@@ -85,22 +85,22 @@ fun MainScreen() {
                 LoginScreen(navController)
             }
             composable("home") {
-                HomeScreen(onShowBottomNav = {
+                HomeScreen(navController) {
                     showBottomNav = true
-                }) // Muestra el BottomNav al llegar a Home
+                } // Muestra el BottomNav al llegar a Home
             }
             composable("promotions") { PromotionsScreen() }
             composable("order") { OrderScreen() }
             composable("profile") { ProfileScreen() }
             composable("cart") { CartScreen(navController) } // Pasa el navController aquí
         }
+
     }
 }
 
 @Composable
 fun CustomBottomNavigation(
-    navController: NavHostController,
-    onItemSelected: (String) -> Unit
+    navController: NavHostController, onItemSelected: (String) -> Unit
 ) {
     Row(
         modifier = Modifier
@@ -110,10 +110,7 @@ fun CustomBottomNavigation(
     ) {
         val items = listOf("home", "promotions", "order", "profile")
         val icons = listOf(
-            Icons.Filled.Home,
-            Icons.Filled.Star,
-            Icons.Filled.List,
-            Icons.Filled.Person
+            Icons.Filled.Home, Icons.Filled.Star, Icons.Filled.List, Icons.Filled.Person
         )
         val labels = listOf("Inicio", "Promociones", "Pedidos", "Perfil")
 
@@ -135,8 +132,7 @@ fun CustomBottomNavigation(
                     )
                 }
                 Text(
-                    text = labels[index],
-                    color = Color.White, // Cambia a blanco para el texto
+                    text = labels[index], color = Color.White, // Cambia a blanco para el texto
                     fontWeight = FontWeight.Bold // Agrega esto para hacer el texto en negrita
                 )
             }

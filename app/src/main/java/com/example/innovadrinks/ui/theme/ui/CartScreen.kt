@@ -1,5 +1,6 @@
 package com.example.innovadrinks.ui.theme.ui
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -22,7 +23,12 @@ import androidx.navigation.NavHostController
 @Composable
 fun CartScreen(navController: NavHostController) {
     Column(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier
+            .fillMaxSize()
+            .background(
+                Color(0xFF1A1A1A),
+                shape = androidx.compose.foundation.shape.RoundedCornerShape(0.dp)
+            ), // Color de fondo para toda la pantalla
         verticalArrangement = Arrangement.Top // Alineación vertical al inicio
     ) {
         // Fila para la flecha a la izquierda y el texto
@@ -52,7 +58,7 @@ fun CartScreen(navController: NavHostController) {
                 text = "Tu Pedido",
                 modifier = Modifier.fillMaxWidth(), // Para que el texto ocupe todo el ancho
                 textAlign = androidx.compose.ui.text.style.TextAlign.Center,
-                color = Color.Black // Color del texto (opcional)
+                color = Color.White // Color del texto (opcional)
             )
         }
 
