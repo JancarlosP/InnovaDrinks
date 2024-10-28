@@ -1,0 +1,19 @@
+
+P
+ app/src/main/AndroidManifest.xml,8\c\8c55c3ccc257e5907959013f99656e4c8ec3903e
+t
+Dapp/src/main/java/com/example/innovadrinks/ui/theme/ui/HomeScreen.kt,e\7\e7c7a47023d3a5c8ea0ce18d5b44db6af16803f2
+y
+Iapp/src/main/java/com/example/innovadrinks/ui/theme/ui/PromotionScreen.kt,0\1\01207072f856b1e83da9ea8ff343dc4cbdbbec4f
+u
+Eapp/src/main/java/com/example/innovadrinks/ui/theme/ui/OrderScreen.kt,0\5\0522a83409de0b83068c98495ac3cb3f495134f3
+w
+Gapp/src/main/java/com/example/innovadrinks/ui/theme/ui/ProfileScreen.kt,7\e\7e6bd9974ae47bb940611da622f7d922da6dcaaf
+D
+app/build.gradle.kts,d\2\d2a4383452aad84a18429a5844d31330a012a9e6
+j
+:app/src/main/java/com/example/innovadrinks/MainActivity.kt,3\9\39d767ff0aca1ac798f760067272ac4bc507a5b1
+t
+Dapp/src/main/java/com/example/innovadrinks/ui/theme/ui/CartScreen.kt,f\b\fbc6b6eea7e862bb2915ef541ae70dc85d3c0959
+u
+Eapp/src/main/java/com/example/innovadrinks/ui/theme/ui/LoginScreen.kt,6\5\65ebfcefed1106c01757b5ec28755dbf80a06163
