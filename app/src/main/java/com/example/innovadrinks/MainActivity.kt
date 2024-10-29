@@ -49,6 +49,18 @@ class MainActivity : ComponentActivity() {
         setContent {
             InnovaDrinksTheme {
                 SplashScreenContent()
+                var showBottomNav by remember { mutableStateOf(true) }
+
+                // Define una función para ocultar el Bottom Navigation Bar
+                fun hideBottomNav() {
+                    showBottomNav = false
+                }
+
+                // Define una función para mostrar el Bottom Navigation Bar (por ejemplo, en otras pantallas)
+                fun showBottomNav() {
+                    showBottomNav = true
+                }
+
             }
         }
     }
@@ -91,7 +103,7 @@ fun MainScreen() {
             }
             composable("promotions") { PromotionsScreen() }
             composable("order") { OrderScreen() }
-            composable("profile") { ProfileScreen() }
+            composable("profile") { ProfileScreen(navController) }
             composable("cart") { CartScreen(navController) } // Pasa el navController aquí
         }
 

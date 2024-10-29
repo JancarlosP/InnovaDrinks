@@ -5,15 +5,19 @@ package com.example.innovadrinks.ui.theme.ui
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.ShoppingCart
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -101,14 +105,49 @@ fun HomeScreen(navController: NavController, onShowBottomNav: () -> Unit) {
                 colors = TextFieldDefaults.textFieldColors(
                     containerColor = Color(0xFF333333), // Color para el TextField
                     focusedIndicatorColor = Color.Transparent,
-                    unfocusedIndicatorColor = Color.Transparent
+                    unfocusedIndicatorColor = Color.Transparent,
+                    textColor = Color.White // Color del texto ingresado
+                ),
+                textStyle = androidx.compose.ui.text.TextStyle(
+                    color = Color.White, // Color del texto ingresado
+                    fontWeight = FontWeight.Bold, // Hace el texto en negrita
+                    fontSize = 16.sp
                 ),
                 shape = RoundedCornerShape(16.dp), // Redondeo de esquinas
-                modifier = Modifier.fillMaxWidth() // Hace que el TextField ocupe todo el ancho
+                modifier = Modifier.fillMaxWidth() // Hace que el TextField ocupe
             )
 
+            // Espacio entre la barra de búsqueda y los botones
+            Spacer(modifier = Modifier.height(16.dp))
+
+            // Botones de Energizantes y Snacks
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceEvenly
+            ) {
+                Button(
+                    onClick = { /* Acción para Energizantes */ },
+                    colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF1A92FF)),
+                    shape = RoundedCornerShape(16.dp), // Redondeo de esquinas
+                    modifier = Modifier.weight(1f)
+                ) {
+                    Text(text = "Energizantes", color = Color.White)
+                }
+
+                Spacer(modifier = Modifier.width(8.dp)) // Espacio entre los dos botones
+
+                Button(
+                    onClick = { /* Acción para Snacks */ },
+                    colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF333333)),
+                    shape = RoundedCornerShape(16.dp), // Redondeo de esquinas
+                    modifier = Modifier.weight(1f)
+                ) {
+                    Text(text = "Snacks", color = Color.White)
+                }
+            }
+
             // Contenido de la pantalla de inicio
-            Spacer(modifier = Modifier.height(16.dp)) // Espacio entre el TextField y el contenido
+            Spacer(modifier = Modifier.height(16.dp)) // Espacio entre los botones y el contenido
             Text(
                 text = "Bienvenido a Innova Drinks",
                 color = Color.White,
