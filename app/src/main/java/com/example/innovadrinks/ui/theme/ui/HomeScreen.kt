@@ -1,23 +1,26 @@
-@file:OptIn(ExperimentalMaterial3Api::class)
-
-package com.example.innovadrinks.ui.theme.ui
-
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -36,20 +39,27 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.innovadrinks.ui.theme.model.Product
+import com.example.innovadrinks.ui.theme.model.productList
+
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(navController: NavController, onShowBottomNav: () -> Unit) {
-    // Muestra el Bottom Navigation cuando se carga la pantalla de inicio
     LaunchedEffect(Unit) {
-        onShowBottomNav() // Asegúrate de que esto se llame una sola vez
+        onShowBottomNav()
     }
 
-    var searchQuery by remember { mutableStateOf("") } // Estado para el texto del TextField
+    var searchQuery by remember { mutableStateOf("") }
+    var selectedCategory by remember { mutableStateOf("Energizantes") }
+
+    // Filtrar la lista de productos por categoría seleccionada
+    val filteredProducts = productList.filter { it.category == selectedCategory }
 
     Scaffold(
         topBar = {
@@ -60,20 +70,18 @@ fun HomeScreen(navController: NavController, onShowBottomNav: () -> Unit) {
                             text = "Delivery",
                             fontSize = 18.sp,
                             fontWeight = FontWeight.Bold,
-                            color = Color.White // Cambia a blanco para que contraste
+                            color = Color.White
                         )
                         Text(
                             text = "Ciudad Sandino",
                             fontSize = 20.sp,
                             fontWeight = FontWeight.Bold,
-                            color = Color.White // Cambia a blanco para que contraste
+                            color = Color.White
                         )
                     }
                 },
                 actions = {
-                    IconButton(onClick = {
-                        navController.navigate("cart") // Navega a CartScreen
-                    }) {
+                    IconButton(onClick = { navController.navigate("cart") }) {
                         Icon(
                             Icons.Filled.ShoppingCart,
                             contentDescription = "Carrito",
@@ -81,7 +89,7 @@ fun HomeScreen(navController: NavController, onShowBottomNav: () -> Unit) {
                         )
                     }
                 },
-                colors = TopAppBarDefaults.smallTopAppBarColors(containerColor = Color(0xFF1A1A1A)) // Color de la barra superior
+                colors = TopAppBarDefaults.smallTopAppBarColors(containerColor = Color(0xFF1A1A1A))
             )
         }
     ) { innerPadding ->
@@ -89,72 +97,127 @@ fun HomeScreen(navController: NavController, onShowBottomNav: () -> Unit) {
             modifier = Modifier
                 .fillMaxSize()
                 .padding(innerPadding)
-                .background(Color(0xFF1A1A1A)) // Color de fondo
-                .padding(16.dp), // Padding alrededor de la columna
+                .background(Color(0xFF1A1A1A))
+                .padding(16.dp),
             verticalArrangement = Arrangement.Top,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            // Barra de búsqueda
             TextField(
-                value = searchQuery, // Usa el estado mutable
-                onValueChange = { searchQuery = it }, // Actualiza el estado
+                value = searchQuery,
+                onValueChange = { searchQuery = it },
                 placeholder = { Text(text = "¿De qué tienes ganas hoy?", color = Color.White) },
                 leadingIcon = {
                     Icon(Icons.Filled.Search, contentDescription = "Buscar", tint = Color.White)
                 },
                 colors = TextFieldDefaults.textFieldColors(
-                    containerColor = Color(0xFF333333), // Color para el TextField
+                    containerColor = Color(0xFF333333),
                     focusedIndicatorColor = Color.Transparent,
                     unfocusedIndicatorColor = Color.Transparent,
-                    textColor = Color.White // Color del texto ingresado
+                    textColor = Color.White
                 ),
                 textStyle = androidx.compose.ui.text.TextStyle(
-                    color = Color.White, // Color del texto ingresado
-                    fontWeight = FontWeight.Bold, // Hace el texto en negrita
+                    color = Color.White,
+                    fontWeight = FontWeight.Bold,
                     fontSize = 16.sp
                 ),
-                shape = RoundedCornerShape(16.dp), // Redondeo de esquinas
-                modifier = Modifier.fillMaxWidth() // Hace que el TextField ocupe
+                shape = RoundedCornerShape(16.dp),
+                modifier = Modifier.fillMaxWidth()
             )
 
-            // Espacio entre la barra de búsqueda y los botones
             Spacer(modifier = Modifier.height(16.dp))
 
-            // Botones de Energizantes y Snacks
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceEvenly
             ) {
+                // Botón de Energizantes
                 Button(
-                    onClick = { /* Acción para Energizantes */ },
-                    colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF1A92FF)),
-                    shape = RoundedCornerShape(16.dp), // Redondeo de esquinas
+                    onClick = { selectedCategory = "Energizantes" },
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = if (selectedCategory == "Energizantes") Color(0xFF1A92FF) else Color(
+                            0xFF333333
+                        )
+                    ),
+                    shape = RoundedCornerShape(16.dp),
                     modifier = Modifier.weight(1f)
                 ) {
-                    Text(text = "Energizantes", color = Color.White)
+                    Text(
+                        text = "Energizantes",
+                        color = Color.White,
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 16.sp
+                    )
                 }
 
-                Spacer(modifier = Modifier.width(8.dp)) // Espacio entre los dos botones
+                Spacer(modifier = Modifier.width(8.dp))
 
+                // Botón de Snacks
                 Button(
-                    onClick = { /* Acción para Snacks */ },
-                    colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF333333)),
-                    shape = RoundedCornerShape(16.dp), // Redondeo de esquinas
+                    onClick = { selectedCategory = "Snacks" },
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = if (selectedCategory == "Snacks") Color(0xFF1A92FF) else Color(
+                            0xFF333333
+                        )
+                    ),
+                    shape = RoundedCornerShape(16.dp),
                     modifier = Modifier.weight(1f)
                 ) {
-                    Text(text = "Snacks", color = Color.White)
+                    Text(
+                        text = "Snacks",
+                        color = Color.White,
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 16.sp
+                    )
                 }
             }
 
-            // Contenido de la pantalla de inicio
-            Spacer(modifier = Modifier.height(16.dp)) // Espacio entre los botones y el contenido
-            Text(
-                text = "Bienvenido a Innova Drinks",
-                color = Color.White,
-                fontSize = 24.sp,
-                fontWeight = FontWeight.Bold
+            Spacer(modifier = Modifier.height(16.dp))
+
+            LazyVerticalGrid(
+                columns = GridCells.Fixed(2),
+                verticalArrangement = Arrangement.spacedBy(16.dp),
+                horizontalArrangement = Arrangement.spacedBy(16.dp),
+                modifier = Modifier.fillMaxSize()
+            ) {
+                items(filteredProducts) { product ->
+                    ProductCard(product = product)
+                }
+            }
+        }
+    }
+}
+
+@Composable
+fun ProductCard(product: Product) {
+    Card(
+        shape = RoundedCornerShape(16.dp),
+        colors = CardDefaults.cardColors(containerColor = Color(0xFF333333)),
+        modifier = Modifier
+            .fillMaxWidth()
+            .aspectRatio(1f)
+            .padding(8.dp)
+    ) {
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center,
+            modifier = Modifier.padding(16.dp)
+        ) {
+            Image(
+                painter = painterResource(id = product.imageRes),
+                contentDescription = product.name,
+                modifier = Modifier
+                    .height(100.dp)
+                    .width(100.dp)
+                    .align(Alignment.CenterHorizontally)
             )
-            // Aquí puedes agregar más botones o elementos de la UI
+            Spacer(modifier = Modifier.height(8.dp))
+            Text(
+                text = product.name,
+                color = Color.White,
+                fontSize = 17.sp,
+                fontWeight = FontWeight.Bold,
+                modifier = Modifier.align(Alignment.CenterHorizontally)
+            )
         }
     }
 }

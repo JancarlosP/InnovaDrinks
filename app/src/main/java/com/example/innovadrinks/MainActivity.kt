@@ -1,6 +1,8 @@
 package com.example.innovadrinks
 
+import HomeScreen
 import LoginScreen
+import RegisterScreen
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -37,7 +39,6 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.innovadrinks.ui.theme.InnovaDrinksTheme
 import com.example.innovadrinks.ui.theme.ui.CartScreen
-import com.example.innovadrinks.ui.theme.ui.HomeScreen
 import com.example.innovadrinks.ui.theme.ui.OrderScreen
 import com.example.innovadrinks.ui.theme.ui.ProfileScreen
 import com.example.innovadrinks.ui.theme.ui.PromotionsScreen
@@ -105,6 +106,7 @@ fun MainScreen() {
             composable("order") { OrderScreen() }
             composable("profile") { ProfileScreen(navController) }
             composable("cart") { CartScreen(navController) } // Pasa el navController aquí
+            composable("register") { RegisterScreen(navController) }
         }
 
     }

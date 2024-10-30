@@ -1,4 +1,3 @@
-
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -18,6 +17,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.font.FontWeight.Companion.Bold
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -62,7 +62,12 @@ fun LoginScreen(navController: NavHostController) {
                 colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF1E88E5)),
                 shape = RoundedCornerShape(16.dp) // Cambia el radio de redondeo según necesites
             ) {
-                Text(text = "Iniciar sesión con Email", fontSize = 16.sp, color = Color.White, fontWeight = Bold)
+                Text(
+                    text = "Iniciar sesión con Email",
+                    fontSize = 16.sp,
+                    color = Color.White,
+                    fontWeight = Bold
+                )
             }
 
             // Botón de continuar con Google
@@ -78,7 +83,12 @@ fun LoginScreen(navController: NavHostController) {
                 colors = ButtonDefaults.buttonColors(containerColor = Color.White),
                 shape = RoundedCornerShape(16.dp) // Cambia el radio de redondeo según necesites
             ) {
-                Text(text = "Continuar con Google", fontSize = 16.sp, color = Color.Black, fontWeight = Bold)
+                Text(
+                    text = "Continuar con Google",
+                    fontSize = 16.sp,
+                    color = Color.Black,
+                    fontWeight = Bold
+                )
             }
 
             // Texto de "¿No tienes cuenta?"
@@ -94,18 +104,22 @@ fun LoginScreen(navController: NavHostController) {
             // Botón de registrarse
             Button(
                 onClick = {
-                    navController.navigate("home") {
-                        popUpTo("login") { inclusive = true }
-                    }
+                    navController.navigate("register")
                 },
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(56.dp), // Aumenta la altura del botón
+                    .height(56.dp),
                 colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF1E88E5)),
-                shape = RoundedCornerShape(16.dp) // Cambia el radio de redondeo según necesites
+                shape = RoundedCornerShape(16.dp)
             ) {
-                Text(text = "Regístrate", fontSize = 16.sp, color = Color.White, fontWeight = Bold)
+                Text(
+                    text = "Regístrate",
+                    fontSize = 16.sp,
+                    color = Color.White,
+                    fontWeight = FontWeight.Bold
+                )
             }
+
         }
     }
 }
